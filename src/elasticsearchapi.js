@@ -10,7 +10,7 @@ module.exports = async function getPlayResultJSON() {
       index: process.env.ELASTIC_SEARCH_INDEX,
       body: {
         sort: { '@timestamp': { order: 'desc' } },
-        size: 1,
+        size: 5,
         _source: [
           'entities.media.display_url',
           'entities.media.media_url_https',
