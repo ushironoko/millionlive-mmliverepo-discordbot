@@ -20,7 +20,7 @@ module.exports = async function getPlayResultJSON() {
         query: { match_all: {} }
       }
     })
-    console.log(res.hits.hits)
+    //console.log(res.hits.hits)
   } catch (error) {
     console.trace(error.message)
   }

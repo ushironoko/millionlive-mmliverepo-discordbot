@@ -4,10 +4,7 @@ const postDiscord = require('./postdiscord')
 
 async function main() {
   const res = await getPlayResultJSON()
-  const returnCode = await postDiscord(res.hits.hits)
-  return returnCode
+  const result = await postDiscord(res)
 }
 
-main().then(msg => {
-  console.log(msg)
-})
+main()
