@@ -1,13 +1,14 @@
-const elasticsearch = require('elasticsearch')
+import elasticsearch from 'elasticsearch'
+import { ELASTIC_SEARCH_URL, ELASTIC_SEARCH_INDEX} from './config'
+
 const client = new elasticsearch.Client({
-  host: process.env.ELASTIC_SEARCH_URL
+  host: ELASTIC_SEARCH_URL
 })
 
-module.exports = async function getPlayResultJSON() {
-  let res = ''
+export default async function getPlayResultJSON() {
   try {
-    res = await client.search({
-      index: process.env.ELASTIC_SEARCH_INDEX,
+    const res: elasticsearch.SearchResponse<any> = await client.search({
+      index: ELASTIC_SEARCH_INDEX,
       body: {
         sort: { '@timestamp': { order: 'desc' } },
         size: 5,
@@ -20,9 +21,8 @@ module.exports = async function getPlayResultJSON() {
         query: { match_all: {} }
       }
     })
-    //console.log(res.hits.hits)
+    return res
   } catch (error) {
     console.trace(error.message)
   }
-  return res
 }
